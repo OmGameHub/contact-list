@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
     View,
     Text,
     ScrollView,
@@ -9,6 +9,7 @@ import { List, ListItem } from 'react-native-elements';
 import Navbar from '../components/Navbar';
 
 import { users } from '../components/datasource/data';
+import ROUTE_NAMES from "../routeNames";
 
 export default class ContactList extends React.Component {
 
@@ -27,7 +28,7 @@ export default class ContactList extends React.Component {
         } else {
             for (let i = 0; i < users.length; i++) {
                 const userName = `${users[i].name.first} ${users[i].name.last}`;
-                
+
                 if (userName.toLowerCase().toString().includes(filterText.toLowerCase().toString())) {
                     filteredUsers.push(users[i]);
                 }
@@ -42,6 +43,8 @@ export default class ContactList extends React.Component {
     }
 
     render(){
+        let { navigation } = this.props;
+
         return (
             <View style={ styles.container } >
                 <Navbar onChangeText={ text => this.userListFilter(text) } />
@@ -55,7 +58,7 @@ export default class ContactList extends React.Component {
                                 avatar={{uri: user.picture.thumbnail}}
                                 key={`${user.email}`}
                                 title={`${this.capitalizeFirstLetter(user.name.first)} ${this.capitalizeFirstLetter(user.name.last)}`}
-                                onPress={() => this.props.navigation.navigate('Profile', { email: user.email })}
+                                onPress={() => navigation.navigate(ROUTE_NAMES.USER_PROFILE, { email: user.email })}
                             />
                         ))
                         }

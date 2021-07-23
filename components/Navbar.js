@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
     View,
     TextInput,
     StatusBar,
@@ -8,16 +8,20 @@ import {
 import { Item, Input } from 'native-base';
 
 export default class Navbar extends React.Component{
+
+
     render(){
+        StatusBar.setBackgroundColor('#3498db');
+
         return (
             <View style={styles.container}>
                 <View style={styles.navbar} >
                     <Item style={styles.input}>
-                        <Input 
+                        <Input
                             style={{ color: '#323232' }}
                             placeholderTextColor='#bdc3c7'
                             placeholder='Search'
-                            onChangeText={ text => this.props.onChangeText(text) }    
+                            onChangeText={ text => this.props.onChangeText(text) }
                         />
                     </Item>
                 </View>
@@ -29,11 +33,12 @@ export default class Navbar extends React.Component{
 const styles = StyleSheet.create({
     container:{
     },
-    navbar: { 
-        paddingTop: StatusBar.currentHeight,
-        height: 80,
-        paddingBottom: 5,
-        backgroundColor: '#3498db', 
+    navbar: {
+        // paddingTop: StatusBar.currentHeight,
+        // height: 80,
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#3498db',
         elevation: 3,
 
         paddingHorizontal: 5,
@@ -43,8 +48,8 @@ const styles = StyleSheet.create({
     input: {
         flex: 1,
         height: 40,
-        marginLeft: 5,
-        borderRadius: 10,
+        // marginLeft: 5,
+        borderRadius: 5,
         backgroundColor: '#fff',
         paddingHorizontal: 10,
     }

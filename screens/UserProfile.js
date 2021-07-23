@@ -1,5 +1,5 @@
 import React from "react";
-import { 
+import {
     View,
     Text,
     ScrollView,
@@ -12,7 +12,7 @@ import { users } from "../components/datasource/data";
 
 export default class UserProfile extends React.Component{
 
-    setUserData = (user) => {
+    setUserData = (user = {}) => {
         const list = [
             {
               icon: 'email',
@@ -40,9 +40,8 @@ export default class UserProfile extends React.Component{
     }
 
     render(){
-        let userIndex = users
-            .map((item) => item.email)
-            .indexOf(this.props.navigation.state.params.email);
+		let { route = {} } = this.props;
+        let userIndex = users.map((item) => item.email).indexOf(route.params.email);
         let user = users[userIndex];
         let list = this.setUserData(user);
 
@@ -57,15 +56,15 @@ export default class UserProfile extends React.Component{
                         style={styles.mypic}
                         source={{uri: user.picture.large}} />
                     </View>
-            
+
                     <Text style={styles.name}>
                         {`${this.capitalizeFirstLetter(user.name.first)} ${this.capitalizeFirstLetter(user.name.last)}`}
                     </Text>
                     </View>
                 </ImageBackground>
-                <ScrollView flex={styles.container} >
+                <ScrollView style={styles.container} >
                     <List containerStyle={{marginTop: 0}} >
-                        { 
+                        {
                             list.map((item, i) => (
                                 <ListItem
                                     key={i}

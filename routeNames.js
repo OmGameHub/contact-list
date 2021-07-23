@@ -1,0 +1,6 @@
+const ROUTE_NAMES = {
+    CONTACT_LIST: "CONTACT_LIST",
+    USER_PROFILE: "USER_PROFILE",
+};
+
+export default ROUTE_NAMES;
