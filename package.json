@@ -28,6 +28,7 @@
     "ios": "react-native run-ios"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "node-fetch": ">=2.6.1"
   }
 }
