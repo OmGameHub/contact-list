@@ -3,6 +3,7 @@ import {
     View,
     Text,
     ScrollView,
+    VirtualizedList,
     StyleSheet
 } from "react-native";
 import { List, ListItem } from 'react-native-elements';
@@ -44,26 +45,29 @@ export default class ContactList extends React.Component {
 
     render(){
         let { navigation } = this.props;
+        let { userList } = this.state;
 
         return (
             <View style={ styles.container } >
                 <Navbar onChangeText={ text => this.userListFilter(text) } />
-                <ScrollView style={ styles.container } >
-                    <List containerStyle={{marginTop: 0}}>
-                        {
-                        this.state.userList
-                            .map((user) => (
-                            <ListItem
-                                roundAvatar
-                                avatar={{uri: user.picture.thumbnail}}
-                                key={`${user.email}`}
-                                title={`${this.capitalizeFirstLetter(user.name.first)} ${this.capitalizeFirstLetter(user.name.last)}`}
-                                onPress={() => navigation.navigate(ROUTE_NAMES.USER_PROFILE, { email: user.email })}
-                            />
-                        ))
-                        }
-                    </List>
-                </ScrollView>
+
+                {/* users list start */}
+                <VirtualizedList
+                    data={userList}
+                    initialNumToRender={15}
+                    renderItem={({ item }) => (
+                        <ListItem
+                            roundAvatar
+                            avatar={{uri: item.picture.thumbnail}}
+                            title={`${this.capitalizeFirstLetter(item.name.first)} ${this.capitalizeFirstLetter(item.name.last)}`}
+                            onPress={() => navigation.navigate(ROUTE_NAMES.USER_PROFILE, { email: item.email })}
+                        />
+                    )}
+                    keyExtractor={item => item.email}
+                    getItemCount={(data) => data?.length}
+                    getItem={(data, index) => data[index]}
+                />
+                {/* users list end */}
             </View>
         );
     }
