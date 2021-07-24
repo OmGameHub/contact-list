@@ -7,28 +7,28 @@ import {
 } from "react-native";
 import { Item, Input } from 'native-base';
 
-export default class Navbar extends React.Component{
+const Navbar = ({
+    onChangeText = (text) => text,
+}) => {
+    StatusBar.setBackgroundColor('#3498db');
 
-
-    render(){
-        StatusBar.setBackgroundColor('#3498db');
-
-        return (
-            <View style={styles.container}>
-                <View style={styles.navbar} >
-                    <Item style={styles.input}>
-                        <Input
-                            style={{ color: '#323232' }}
-                            placeholderTextColor='#bdc3c7'
-                            placeholder='Search'
-                            onChangeText={ text => this.props.onChangeText(text) }
-                        />
-                    </Item>
-                </View>
+    return (
+        <View style={styles.container}>
+            <View style={styles.navbar} >
+                <Item style={styles.input}>
+                    <Input
+                        style={{ color: '#323232' }}
+                        placeholderTextColor='#bdc3c7'
+                        placeholder='Search'
+                        onChangeText={onChangeText}
+                    />
+                </Item>
             </View>
-        );
-    }
+        </View>
+    );
 }
+
+export default Navbar;
 
 const styles = StyleSheet.create({
     container:{
