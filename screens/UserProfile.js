@@ -2,12 +2,12 @@ import React from "react";
 import {
     View,
     Text,
-    ScrollView,
     Image,
     ImageBackground,
-    StyleSheet
+    StyleSheet,
+    VirtualizedList
 } from "react-native";
-import { List, ListItem } from 'react-native-elements';
+import { Icon, ListItem } from 'react-native-elements';
 import { users } from "../components/datasource/data";
 
 export default class UserProfile extends React.Component{
@@ -62,7 +62,7 @@ export default class UserProfile extends React.Component{
                     </Text>
                     </View>
                 </ImageBackground>
-                <ScrollView style={styles.container} >
+                {/* <ScrollView style={styles.container} >
                     <List containerStyle={{marginTop: 0}} >
                         {
                             list.map((item, i) => (
@@ -74,7 +74,23 @@ export default class UserProfile extends React.Component{
                             ))
                         }
                     </List>
-                </ScrollView>
+                </ScrollView> */}
+                <VirtualizedList
+                    data={list}
+                    renderItem={({ item }) => (
+                        <ListItem bottomDivider>
+                            <Icon name={item.icon} color={"#bdc3c7"} />
+                            <ListItem.Content >
+                                <ListItem.Title>{item.title}</ListItem.Title>
+                            </ListItem.Content>
+
+                            <ListItem.Chevron />
+                        </ListItem>
+                    )}
+                    keyExtractor={(_, index) => index.toString()}
+                    getItemCount={(data) => data?.length}
+                    getItem={(data, index) => data[index]}
+                />
             </View>
         );
     }

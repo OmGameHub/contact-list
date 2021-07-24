@@ -1,12 +1,10 @@
 import React from "react";
 import {
     View,
-    Text,
-    ScrollView,
     VirtualizedList,
     StyleSheet
 } from "react-native";
-import { List, ListItem } from 'react-native-elements';
+import { Avatar, ListItem } from 'react-native-elements';
 import Navbar from '../components/Navbar';
 
 import { users } from '../components/datasource/data';
@@ -57,11 +55,17 @@ export default class ContactList extends React.Component {
                     initialNumToRender={15}
                     renderItem={({ item }) => (
                         <ListItem
-                            roundAvatar
-                            avatar={{uri: item.picture.thumbnail}}
-                            title={`${this.capitalizeFirstLetter(item.name.first)} ${this.capitalizeFirstLetter(item.name.last)}`}
+                            bottomDivider
                             onPress={() => navigation.navigate(ROUTE_NAMES.USER_PROFILE, { email: item.email })}
-                        />
+                        >
+                            <Avatar rounded source={{uri: item.picture.thumbnail}} />
+                            <ListItem.Content>
+                                <ListItem.Title>{`${this.capitalizeFirstLetter(item.name.first)} ${this.capitalizeFirstLetter(item.name.last)}`}</ListItem.Title>
+                                <ListItem.Subtitle>{item.cell}</ListItem.Subtitle>
+                            </ListItem.Content>
+
+                            <ListItem.Chevron />
+                        </ListItem>
                     )}
                     keyExtractor={item => item.email}
                     getItemCount={(data) => data?.length}
